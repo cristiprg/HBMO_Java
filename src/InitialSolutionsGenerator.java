@@ -7,20 +7,20 @@ import java.util.TreeSet;
  */
 public class InitialSolutionsGenerator {
 
-    public static final int NR_INITIAL_SOLUTIONS = 10;
-    public static final double MIN = 0.8;
-    public static final double MAX = 1.2;
+    public static final int NR_INITIAL_SOLUTIONS = 10000;
+    // public static final double MIN = 0.8;
+    // public static final double MAX = 1.2;
+    public static final double MIN = -100;
+    public static final double MAX = 100;
 
     /**
-     * Aicia vine Honey Bee Colony in actiune.
-     * Deocamdata facem random
+     * Aicia vine Honey Bee Colony in actiune. Deocamdata facem random
      *
      * @return A SortedSet (Tree) filled with random solutions.
      */
-    public static SortedSet<Solution> generateRandomSolutions()
-    {
+    public static SortedSet<Solution> generateRandomSolutions() {
         SortedSet<Solution> solutions = new TreeSet<Solution>();
-        double x,y;
+        double x, y;
         Random r = new Random();
         for (int i = 0; i < NR_INITIAL_SOLUTIONS; i++) {
             x = MIN + (MAX - MIN) * r.nextDouble();
@@ -31,4 +31,3 @@ public class InitialSolutionsGenerator {
         return solutions;
     }
 }
-
