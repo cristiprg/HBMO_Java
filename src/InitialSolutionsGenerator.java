@@ -8,8 +8,8 @@ import java.util.TreeSet;
 public class InitialSolutionsGenerator {
 
     public static final int NR_INITIAL_SOLUTIONS = 10;
-    public static final double MIN = 0.8;
-    public static final double MAX = 1.2;
+    public static final double MIN = -5;
+    public static final double MAX = 5;
 
     /**
      * Aicia vine Honey Bee Colony in actiune.
