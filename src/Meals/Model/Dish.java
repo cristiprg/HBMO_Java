@@ -5,8 +5,9 @@ import java.util.*;
 /**
  * 
  */
-public class Dish {
+public abstract class Dish {
 
+    FoodProperties foodProperties; // Ar trebui sa fie mai multe aici?
     /**
      * 
      */

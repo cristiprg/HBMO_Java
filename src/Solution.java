@@ -7,6 +7,8 @@ import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import Meals.Model.DayMeal;
+
 /**
  * The bee.
  */

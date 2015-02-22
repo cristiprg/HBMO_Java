@@ -7,6 +7,8 @@ import java.util.*;
  */
 public class Breakfast {
 
+    MainCourse mainCourse;
+    Desert desert;
     /**
      * 
      */
