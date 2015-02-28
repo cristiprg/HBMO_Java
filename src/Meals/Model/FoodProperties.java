@@ -254,4 +254,12 @@ public class FoodProperties {
         result = 31 * result + (waterG != null ? waterG.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString()
+    {
+        return code + " " + name + " " + description + " " + type + " " + subtype + " " + energyKcal + " " +
+                fatG + " " + carbG + " " + satFatAcidG + " " + transFatAcidG + " " + proteinG + " " +
+                potassiumMg + " " + calciumMg + " " + sodiumMg + " " + vitaminDUg + " " + alcoholG + " " + waterG;
+    }
 }
