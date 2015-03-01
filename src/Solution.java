@@ -1,3 +1,4 @@
+import Meals.Model.*;
 import com.sun.istack.internal.NotNull;
 
 import java.lang.Comparable;
@@ -7,12 +8,13 @@ import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import Meals.Model.DayMeal;
-
 /**
  * The bee.
  */
 public class Solution implements Comparable<Solution> {
+
+    private DayMeal dayMeal;
+
     private double x;
     private double y;
     private int speed = 100;
@@ -22,6 +24,21 @@ public class Solution implements Comparable<Solution> {
     static double energyReductionAmount = 5;
     static double probabilityToMateDroneThreshold = 0.05;
 
+    public DayMeal getDayMeal() {
+        return dayMeal;
+    }
+
+
+    public Solution()
+    {
+        this(null);
+    }
+
+    public Solution(DayMeal dayMeal) {
+        this.dayMeal = dayMeal;
+    }
+
+    /*
     public Solution() {
         this(0, 0);
     }
@@ -30,21 +47,22 @@ public class Solution implements Comparable<Solution> {
         this.x = x;
         this.y = y;
     }
-
+*/
     @Override
     public int compareTo(@NotNull Solution other) {
-
         if (this.equals(other)) {
             return 0;
         }
-
+        return 1;
+        //TODO
+/*
         double f1 = this.getFitness();
         double f2 = other.getFitness();
         // if this is > then other => fitness is better, thus return 1
         if (f1 < f2)
             return -1;
         else
-            return 1;
+            return 1;*/
     }
 
     /**
@@ -132,7 +150,9 @@ public class Solution implements Comparable<Solution> {
         Random r = new Random();
         double x = r.nextDouble();
         double y = r.nextDouble();
-        return new Solution(x, y);
+        //return new Solution(x, y); //TODO
+
+        return new Solution();
     }
 
     /**
@@ -147,7 +167,9 @@ public class Solution implements Comparable<Solution> {
         Random r = new Random();
         x = r.nextBoolean() ? this.x : drone.x;
         y = r.nextBoolean() ? this.y : drone.y;
-        return new Solution(x, y);
+        //return new Solution(x, y);
+        //return new Solution(x, y);//TODO
+        return new Solution();
     }
 
     public boolean hasEnergy() {
@@ -156,7 +178,9 @@ public class Solution implements Comparable<Solution> {
 
     @Override
     public String toString() {
-        return "(" + ((int) (x * 100)) / 100.0 + "," + ((int) (y * 100)) / 100.0 + ")";
+        //return "(" + ((int) (x * 100)) / 100.0 + "," + ((int) (y * 100)) / 100.0 + ")";
+        ////TODO
+        return dayMeal.toString();
     }
 
     @Override
@@ -167,8 +191,9 @@ public class Solution implements Comparable<Solution> {
         if (!(other instanceof Solution))
             return false;
 
-        Solution _other = (Solution) other;
-        return Double.compare(_other.x, this.x) == 0 && Double.compare(_other.y, this.y) == 0;
+        //return Double.compare(_other.x, this.x) == 0 && Double.compare(_other.y, this.y) == 0;
+        //TODO
+        return this.dayMeal.equals(((Solution) other).getDayMeal());
     }
 
 }

@@ -5,16 +5,8 @@ import java.util.*;
  * 
  */
 public class Desert extends Dish {
-
-    /**
-     * 
-     */
-    public Desert() {
+    public Desert(FoodProperties foodProperties)
+    {
+        super(foodProperties);
     }
-
-
-
-
-
-
 }
