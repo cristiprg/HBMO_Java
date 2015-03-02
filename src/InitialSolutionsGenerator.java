@@ -1,3 +1,5 @@
+import Meals.Model.*;
+
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -20,12 +22,42 @@ public class InitialSolutionsGenerator {
      */
     public static SortedSet<Solution> generateRandomSolutions() {
         SortedSet<Solution> solutions = new TreeSet<Solution>();
-        double x, y;
-        Random r = new Random();
-        for (int i = 0; i < NR_INITIAL_SOLUTIONS; i++) {
-            x = MIN + (MAX - MIN) * r.nextDouble();
-            y = MIN + (MAX - MIN) * r.nextDouble();
-            solutions.add(new Solution(x, y));
+        FoodFactory foodFactory = new FoodFactory();
+
+        for (int i = 0; i < NR_INITIAL_SOLUTIONS; i++)
+        {
+            Breakfast breakfast = new Breakfast(
+                    new MainCourse(foodFactory.getRandomFoodProperties()),
+                    new Desert(foodFactory.getRandomFoodProperties())
+            );
+
+            Lunch lunch = new Lunch(
+                    new StarterDish(foodFactory.getRandomFoodProperties()),
+                    new MainCourse(foodFactory.getRandomFoodProperties()),
+                    new Desert(foodFactory.getRandomFoodProperties())
+            );
+
+            Dinner dinner = new Dinner(
+                    new StarterDish(foodFactory.getRandomFoodProperties()),
+                    new MainCourse(foodFactory.getRandomFoodProperties()),
+                    new Desert(foodFactory.getRandomFoodProperties())
+            );
+
+            Snack snack1 = new Snack(
+                    new MainCourse(foodFactory.getRandomFoodProperties())
+            );
+
+            Snack snack2 = new Snack(
+                    new MainCourse(foodFactory.getRandomFoodProperties())
+            );
+
+            DayMeal dayMeal = new DayMeal(breakfast, lunch, dinner, snack1, snack2);
+
+            if(solutions.add(new Solution(dayMeal)) == false){
+                // TODO: scoate odiosenia asta
+                System.err.println("Fatal error: NU CRED - Method \"add\" returned false - adica is doua exact la fel!");
+                System.exit(1);
+            }
         }
 
         return solutions;
