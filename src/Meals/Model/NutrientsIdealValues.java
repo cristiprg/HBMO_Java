@@ -24,7 +24,14 @@ public class NutrientsIdealValues {
     private Double alcoholG;
     private Double waterG;
 
+    @Transient
     private Map<String, Double> nutrientsIdealValuesMap = null;
+
+    @Transient
+    public Map<String, Double> getNutrientsIdealValuesMap() {
+        return nutrientsIdealValuesMap;
+    }
+
     public NutrientsIdealValues()
     {
     }

@@ -81,18 +81,33 @@ public class Solution implements Comparable<Solution> {
      */
     public double getFitness() {
         //return (Math.exp(-x * x) + Math.exp(-y * y)) / 2.0;
-        return 0.5 * (getFitnessLevel1() + getFitnessLevel2());
+        //return 0.5 * (getFitnessLevel1() + getFitnessLevel2());
+        return getFitnessLevel1();
     }
 
-    private double getFitnessLevel1()
-    {
+    private double getFitnessLevel1() {
+        Map<String, Double> nutrientsValueMap = dayMeal.getNutrientsValuesMap();
+        Double sum = new Double(0);
+        for (String key : nutrientsValueMap.keySet()) {
+            // TODO implement weigths
+            double err = errorMargin(nutrientsValueMap.get(key), NutrientsIdealValuesHelper.getIdealValueForNutrient(key));
+            sum += err;
 
-        return 0;
+            //System.out.println(key + " " + " " + nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);
+
+        }
+
+        return sum / nutrientsValueMap.size();
     }
 
     private double getFitnessLevel2()
     {
         return 0;
+    }
+
+    private double errorMargin(Double x, Double ideal)
+    {
+        return Math.exp(- (x - ideal) * (x - ideal));
     }
 
     /**
