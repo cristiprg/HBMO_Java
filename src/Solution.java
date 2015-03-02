@@ -18,6 +18,7 @@ public class Solution implements Comparable<Solution> {
 
     private int speed = 100;
     private int energy = 100;
+    private double fitness = 0;
 
     static double speedReductionFactor = 0.5;
     static double energyReductionAmount = 5;
@@ -36,6 +37,7 @@ public class Solution implements Comparable<Solution> {
     public Solution(DayMeal dayMeal) {
         this.dayMeal = dayMeal;
         computeNutrientsValues();
+        computeFitness();
     }
 
     public Map<String, Double> computeNutrientsValues()
@@ -58,6 +60,11 @@ public class Solution implements Comparable<Solution> {
             return 1;
     }
 
+    public double getFitness()
+    {
+        return fitness;
+    }
+
     /**
      * The final value of the fitness function will be the mean value between the gaussian applied
      * to x and y i.e.: e^(-x*x) + e^(-y*y) / 2. Resulting values between 0 and 1. The higher the
@@ -65,10 +72,10 @@ public class Solution implements Comparable<Solution> {
      *
      * @return The fitness function of this solution.
      */
-    public double getFitness() {
+    private void computeFitness() {
         //return (Math.exp(-x * x) + Math.exp(-y * y)) / 2.0;
         //return 0.5 * (getFitnessLevel1() + getFitnessLevel2());
-        return getFitnessLevel1();
+        fitness = getFitnessLevel1();
     }
 
     private double getFitnessLevel1() {
