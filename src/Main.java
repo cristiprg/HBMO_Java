@@ -18,7 +18,7 @@ public class Main {
 
         // Do .. while the queen still has energy
         int nrOfIterations = 0;
-        while (queen.hasEnergy()) {
+        while (queen.hasEnergy() && queen.hasSpeed()) {
             nrOfIterations++;
             int nrOfDronesTheQueenMatedWith = 0;
 
@@ -58,7 +58,7 @@ public class Main {
                 else
                     solutions.add(br);
             }
-            printNewSetOfSolutions(solutions);
+            //printNewSetOfSolutions(solutions);
 
             // the best brood is selected as the queen
             Solution bestBrood = broods.last();

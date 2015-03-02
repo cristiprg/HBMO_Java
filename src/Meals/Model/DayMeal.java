@@ -74,4 +74,44 @@ public class DayMeal extends BasicMeal implements Comparable<DayMeal>{
     public Map<String, Double> getNutrientsValues() {
         return nutrientsValuesMap;
     }
+
+    public Breakfast getBreakfast() {
+        return breakfast;
+    }
+
+    public void setBreakfast(Breakfast breakfast) {
+        this.breakfast = breakfast;
+    }
+
+    public Dinner getDinner() {
+        return dinner;
+    }
+
+    public void setDinner(Dinner dinner) {
+        this.dinner = dinner;
+    }
+
+    public Lunch getLunch() {
+        return lunch;
+    }
+
+    public void setLunch(Lunch lunch) {
+        this.lunch = lunch;
+    }
+
+    public Snack getSnack1() {
+        return snack1;
+    }
+
+    public void setSnack1(Snack snack1) {
+        this.snack1 = snack1;
+    }
+
+    public Snack getSnack2() {
+        return snack2;
+    }
+
+    public void setSnack2(Snack snack2) {
+        this.snack2 = snack2;
+    }
 }

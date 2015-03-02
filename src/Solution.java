@@ -60,16 +60,14 @@ public class Solution implements Comparable<Solution> {
         if (this.equals(other)) {
             return 0;
         }
-        return 1;
-        //TODO
-/*
+
         double f1 = this.getFitness();
         double f2 = other.getFitness();
         // if this is > then other => fitness is better, thus return 1
         if (f1 < f2)
             return -1;
         else
-            return 1;*/
+            return 1;
     }
 
     /**
@@ -197,24 +195,44 @@ public class Solution implements Comparable<Solution> {
      * @return A new solution (brood).
      */
     public Solution combineGenotypes(Solution drone) {
-        double x, y;
+        DayMeal brood = new DayMeal();
         Random r = new Random();
-        x = r.nextBoolean() ? this.x : drone.x;
-        y = r.nextBoolean() ? this.y : drone.y;
-        //return new Solution(x, y);
-        //return new Solution(x, y);//TODO
-        return new Solution();
+
+        brood.setBreakfast(r.nextBoolean() ? // if random is true
+                this.dayMeal.getBreakfast() : // take from this queen
+                drone.dayMeal.getBreakfast()); // otherwise, take from drone.
+
+        brood.setLunch(r.nextBoolean() ?
+                this.dayMeal.getLunch() :
+                drone.dayMeal.getLunch());
+
+        brood.setDinner(r.nextBoolean() ?
+                this.dayMeal.getDinner() :
+                drone.dayMeal.getDinner());
+
+        brood.setSnack1(r.nextBoolean() ?
+                this.dayMeal.getSnack1() :
+                drone.dayMeal.getSnack1());
+
+        brood.setSnack2(r.nextBoolean() ?
+                this.dayMeal.getSnack2() :
+                drone.dayMeal.getSnack2());
+
+        return new Solution(brood);
     }
 
     public boolean hasEnergy() {
         return energy > 0;
     }
 
+    public boolean hasSpeed()
+    {
+        return speed > 0;
+    }
+
     @Override
     public String toString() {
-        //return "(" + ((int) (x * 100)) / 100.0 + "," + ((int) (y * 100)) / 100.0 + ")";
-        ////TODO
-        return dayMeal.toString();
+        return dayMeal.toString() + "\n" + dayMeal.getNutrientsValuesMap().toString();
     }
 
     @Override
@@ -225,8 +243,6 @@ public class Solution implements Comparable<Solution> {
         if (!(other instanceof Solution))
             return false;
 
-        //return Double.compare(_other.x, this.x) == 0 && Double.compare(_other.y, this.y) == 0;
-        //TODO
         return this.dayMeal.equals(((Solution) other).getDayMeal());
     }
 
