@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * 
  */
-public class DayMeal implements Comparable<DayMeal> {
+public class DayMeal extends BasicMeal implements Comparable<DayMeal>{
     protected Breakfast breakfast;
     protected Dinner dinner;
     protected Lunch lunch;
@@ -26,6 +26,21 @@ public class DayMeal implements Comparable<DayMeal> {
         this.snack1 = snack1;
         this.snack2 = snack2;
     }
+
+    @Override
+    public Map<String, Double> computeNutrientsValues()
+    {
+        nutrientsValuesMap = MapHelper.addNutrientsMaps(
+                breakfast.computeNutrientsValues(),
+                lunch.computeNutrientsValues(),
+                dinner.computeNutrientsValues(),
+                snack1.computeNutrientsValues(),
+                snack2.computeNutrientsValues()
+        );
+
+        return getNutrientsValuesMap();
+    }
+
 
     @Override
     public int compareTo(@NotNull DayMeal other) {
@@ -54,5 +69,9 @@ public class DayMeal implements Comparable<DayMeal> {
     {
         return "B: " + breakfast.toString() + " L: " + lunch.toString() + " D:" + dinner.toString() + " S1:" +
                 snack1.toString() + " S2:" + snack2.toString();
+    }
+
+    public Map<String, Double> getNutrientsValues() {
+        return nutrientsValuesMap;
     }
 }

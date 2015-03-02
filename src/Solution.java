@@ -4,6 +4,7 @@ import com.sun.istack.internal.NotNull;
 import java.lang.Comparable;
 import java.lang.Math;
 import java.lang.Override;
+import java.util.Map;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -36,6 +37,12 @@ public class Solution implements Comparable<Solution> {
 
     public Solution(DayMeal dayMeal) {
         this.dayMeal = dayMeal;
+        computeNutrientsValues();
+    }
+
+    public Map<String, Double> computeNutrientsValues()
+    {
+        return dayMeal.computeNutrientsValues();
     }
 
     /*
@@ -73,7 +80,19 @@ public class Solution implements Comparable<Solution> {
      * @return The fitness function of this solution.
      */
     public double getFitness() {
-        return (Math.exp(-x * x) + Math.exp(-y * y)) / 2.0;
+        //return (Math.exp(-x * x) + Math.exp(-y * y)) / 2.0;
+        return 0.5 * (getFitnessLevel1() + getFitnessLevel2());
+    }
+
+    private double getFitnessLevel1()
+    {
+
+        return 0;
+    }
+
+    private double getFitnessLevel2()
+    {
+        return 0;
     }
 
     /**

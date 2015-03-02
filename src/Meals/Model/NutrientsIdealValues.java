@@ -1,37 +1,34 @@
 package Meals.Model;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * 
+ * Created by cristiprg on 02.03.2015.
  */
 @Entity
-@Table(name = "food_properties", schema = "", catalog = "nutritioncareprocess")
-public class FoodProperties {
-
-    private String code;
-    private String name;
-    private String description;
-    private String type;
-    private String subtype;
+@Table(name = "nutrients_ideal_values", schema = "", catalog = "nutritioncareprocess")
+public class NutrientsIdealValues {
+    private int id;
     private Double energyKcal;
     private Double fatG;
     private Double carbG;
     private Double satFatAcidG;
     private Double transFatAcidG;
     private Double proteinG;
-    private Double potassiumMg;
-    private Double calciumMg;
-    private Double sodiumMg;
+    private Double potassiumG;
+    private Double calciumG;
+    private Double sodiumG;
     private Double vitaminDUg;
     private Double alcoholG;
     private Double waterG;
 
-    @Transient
     private Map<String, Double> nutrientsIdealValuesMap = null;
+    public NutrientsIdealValues()
+    {
+    }
 
-    // TODO: MAAARE TODO .... trebuie o idee a standardiza numele nutrientilor
     public void populateMap()
     {
         nutrientsIdealValuesMap = new HashMap<String, Double>();
@@ -41,73 +38,22 @@ public class FoodProperties {
         nutrientsIdealValuesMap.put("satFatAcidG", satFatAcidG);
         nutrientsIdealValuesMap.put("transFatAcidG", transFatAcidG);
         nutrientsIdealValuesMap.put("proteinG", proteinG);
-        nutrientsIdealValuesMap.put("potassiumG", potassiumMg);
-        nutrientsIdealValuesMap.put("calciumG", calciumMg);
-        nutrientsIdealValuesMap.put("sodiumG", sodiumMg);
+        nutrientsIdealValuesMap.put("potassiumG", potassiumG);
+        nutrientsIdealValuesMap.put("calciumG", calciumG);
+        nutrientsIdealValuesMap.put("sodiumG", sodiumG);
         nutrientsIdealValuesMap.put("vitaminDUg", vitaminDUg);
         nutrientsIdealValuesMap.put("alcoholG", alcoholG);
         nutrientsIdealValuesMap.put("waterG", waterG);
     }
 
-    @Transient
-    public Map<String, Double> getNutrientsIdealValuesMap() {
-        return nutrientsIdealValuesMap;
-    }
-
-    /**
-     *
-     */
-    public FoodProperties() {
-    }
-
     @Id
-    @Column(name = "code")
-    public String getCode() {
-        return code;
+    @Column(name = "id")
+    public int getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Basic
-    @Column(name = "description")
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Basic
-    @Column(name = "type")
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @Basic
-    @Column(name = "subtype")
-    public String getSubtype() {
-        return subtype;
-    }
-
-    public void setSubtype(String subtype) {
-        this.subtype = subtype;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
@@ -171,33 +117,33 @@ public class FoodProperties {
     }
 
     @Basic
-    @Column(name = "potassium_mg")
-    public Double getPotassiumMg() {
-        return potassiumMg;
+    @Column(name = "potassium_g")
+    public Double getPotassiumG() {
+        return potassiumG;
     }
 
-    public void setPotassiumMg(Double potassiumMg) {
-        this.potassiumMg = potassiumMg;
-    }
-
-    @Basic
-    @Column(name = "calcium_mg")
-    public Double getCalciumMg() {
-        return calciumMg;
-    }
-
-    public void setCalciumMg(Double calciumMg) {
-        this.calciumMg = calciumMg;
+    public void setPotassiumG(Double potassiumG) {
+        this.potassiumG = potassiumG;
     }
 
     @Basic
-    @Column(name = "sodium_mg")
-    public Double getSodiumMg() {
-        return sodiumMg;
+    @Column(name = "calcium_g")
+    public Double getCalciumG() {
+        return calciumG;
     }
 
-    public void setSodiumMg(Double sodiumMg) {
-        this.sodiumMg = sodiumMg;
+    public void setCalciumG(Double calciumG) {
+        this.calciumG = calciumG;
+    }
+
+    @Basic
+    @Column(name = "sodium_g")
+    public Double getSodiumG() {
+        return sodiumG;
+    }
+
+    public void setSodiumG(Double sodiumG) {
+        this.sodiumG = sodiumG;
     }
 
     @Basic
@@ -235,24 +181,20 @@ public class FoodProperties {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FoodProperties that = (FoodProperties) o;
+        NutrientsIdealValues that = (NutrientsIdealValues) o;
 
+        if (id != that.id) return false;
         if (alcoholG != null ? !alcoholG.equals(that.alcoholG) : that.alcoholG != null) return false;
-        if (calciumMg != null ? !calciumMg.equals(that.calciumMg) : that.calciumMg != null) return false;
+        if (calciumG != null ? !calciumG.equals(that.calciumG) : that.calciumG != null) return false;
         if (carbG != null ? !carbG.equals(that.carbG) : that.carbG != null) return false;
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (energyKcal != null ? !energyKcal.equals(that.energyKcal) : that.energyKcal != null) return false;
         if (fatG != null ? !fatG.equals(that.fatG) : that.fatG != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (potassiumMg != null ? !potassiumMg.equals(that.potassiumMg) : that.potassiumMg != null) return false;
+        if (potassiumG != null ? !potassiumG.equals(that.potassiumG) : that.potassiumG != null) return false;
         if (proteinG != null ? !proteinG.equals(that.proteinG) : that.proteinG != null) return false;
         if (satFatAcidG != null ? !satFatAcidG.equals(that.satFatAcidG) : that.satFatAcidG != null) return false;
-        if (sodiumMg != null ? !sodiumMg.equals(that.sodiumMg) : that.sodiumMg != null) return false;
-        if (subtype != null ? !subtype.equals(that.subtype) : that.subtype != null) return false;
+        if (sodiumG != null ? !sodiumG.equals(that.sodiumG) : that.sodiumG != null) return false;
         if (transFatAcidG != null ? !transFatAcidG.equals(that.transFatAcidG) : that.transFatAcidG != null)
             return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (vitaminDUg != null ? !vitaminDUg.equals(that.vitaminDUg) : that.vitaminDUg != null) return false;
         if (waterG != null ? !waterG.equals(that.waterG) : that.waterG != null) return false;
 
@@ -261,31 +203,46 @@ public class FoodProperties {
 
     @Override
     public int hashCode() {
-        int result = code != null ? code.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (subtype != null ? subtype.hashCode() : 0);
+        int result = id;
         result = 31 * result + (energyKcal != null ? energyKcal.hashCode() : 0);
         result = 31 * result + (fatG != null ? fatG.hashCode() : 0);
         result = 31 * result + (carbG != null ? carbG.hashCode() : 0);
         result = 31 * result + (satFatAcidG != null ? satFatAcidG.hashCode() : 0);
         result = 31 * result + (transFatAcidG != null ? transFatAcidG.hashCode() : 0);
         result = 31 * result + (proteinG != null ? proteinG.hashCode() : 0);
-        result = 31 * result + (potassiumMg != null ? potassiumMg.hashCode() : 0);
-        result = 31 * result + (calciumMg != null ? calciumMg.hashCode() : 0);
-        result = 31 * result + (sodiumMg != null ? sodiumMg.hashCode() : 0);
+        result = 31 * result + (potassiumG != null ? potassiumG.hashCode() : 0);
+        result = 31 * result + (calciumG != null ? calciumG.hashCode() : 0);
+        result = 31 * result + (sodiumG != null ? sodiumG.hashCode() : 0);
         result = 31 * result + (vitaminDUg != null ? vitaminDUg.hashCode() : 0);
         result = 31 * result + (alcoholG != null ? alcoholG.hashCode() : 0);
         result = 31 * result + (waterG != null ? waterG.hashCode() : 0);
         return result;
     }
 
+
     @Override
     public String toString()
     {
-        return code + " " + name + " " + description + " " + type + " " + subtype + " " + energyKcal + " " +
-                fatG + " " + carbG + " " + satFatAcidG + " " + transFatAcidG + " " + proteinG + " " +
-                potassiumMg + " " + calciumMg + " " + sodiumMg + " " + vitaminDUg + " " + alcoholG + " " + waterG;
+        /*return "energyKcal = " + energyKcal + "\n" +
+                "fatG = " + fatG + "\n" +
+                "carbG = " + carbG + "\n" +
+                "satFatAcidG = " + satFatAcidG + "\n" +
+                "transFatAcidG = " + transFatAcidG + "\n" +
+                "proteinG = " + proteinG + "\n" +
+                "potassiumG = " + potassiumG + "\n" +
+                "calciumG = " + calciumG + "\n" +
+                "sodiumG = " + sodiumG + "\n" +
+                "vitaminDug = " + vitaminDUg + "\n" +
+                "alcoholG = " + alcoholG + "\n" +
+                "waterG = " + waterG + "\n";*/
+
+        /*String s = "";
+        for(Map.Entry<String, Double> nutritent : this.nutrientsIdealValuesMap.entrySet())
+        {
+            s += nutritent.getKey() + " = " + nutritent.getValue() + "\n";
+        }
+        return s;
+        */
+        return MapHelper.mapToString(this.nutrientsIdealValuesMap);
     }
 }

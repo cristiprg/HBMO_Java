@@ -28,10 +28,14 @@ public abstract class Dish {
         this.foodProperties = foodProperties;
     }
 
+    public Map<String, Double> getNutrientsIdealValuesMap() {
+        return foodProperties.getNutrientsIdealValuesMap();
+    }
+
     @Override
     public String toString()
     {
-        return foodProperties.getName();
+        return foodProperties.getCode() + " - " + foodProperties.getName();
     }
 
     @Override

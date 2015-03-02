@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * 
  */
-public class Breakfast {
+public class Breakfast extends BasicMeal {
 
     protected MainCourse mainCourse;
     protected Desert desert;
@@ -38,6 +38,16 @@ public class Breakfast {
     {
         this.mainCourse = mainCourse;
         this.desert = desert;
+    }
+
+    @Override
+    public Map<String, Double> computeNutrientsValues()
+    {
+        nutrientsValuesMap = MapHelper.addNutrientsMaps(
+                mainCourse.getNutrientsIdealValuesMap(),
+                desert.getNutrientsIdealValuesMap());
+
+        return getNutrientsValuesMap();
     }
 
     @Override
