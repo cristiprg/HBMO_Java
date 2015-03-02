@@ -16,8 +16,6 @@ public class Solution implements Comparable<Solution> {
 
     private DayMeal dayMeal;
 
-    private double x;
-    private double y;
     private int speed = 100;
     private int energy = 100;
 
@@ -45,16 +43,6 @@ public class Solution implements Comparable<Solution> {
         return dayMeal.computeNutrientsValues();
     }
 
-    /*
-    public Solution() {
-        this(0, 0);
-    }
-
-    public Solution(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-*/
     @Override
     public int compareTo(@NotNull Solution other) {
         if (this.equals(other)) {
@@ -195,9 +183,74 @@ public class Solution implements Comparable<Solution> {
      * @return A new solution (brood).
      */
     public Solution combineGenotypes(Solution drone) {
-        DayMeal brood = new DayMeal();
         Random r = new Random();
 
+        StarterDish starterDish1 = null, starterDish2 = null;
+        MainCourse mainCourse1 = null, mainCourse2 = null;
+        Desert desert1 = null, desert2 = null;
+
+        // combine breakfast
+        mainCourse1 = this.dayMeal.getBreakfast().getMainCourse();
+        mainCourse2 = drone.dayMeal.getBreakfast().getMainCourse();
+
+        desert1 = this.dayMeal.getBreakfast().getDesert();
+        desert2 = drone.dayMeal.getBreakfast().getDesert();
+
+        Breakfast breakfast = new Breakfast(
+                r.nextBoolean() ? mainCourse1 : mainCourse2,
+                r.nextBoolean() ? desert1 : desert2
+        );
+
+        // combine lunch
+        starterDish1 = this.dayMeal.getLunch().getStarterDish();
+        starterDish2 = drone.dayMeal.getLunch().getStarterDish();
+
+        mainCourse1 = this.dayMeal.getLunch().getMainCourse();
+        mainCourse2 = drone.dayMeal.getLunch().getMainCourse();
+
+        desert1 = this.dayMeal.getLunch().getDesert();
+        desert2 = drone.dayMeal.getLunch().getDesert();
+
+        Lunch lunch = new Lunch(
+                r.nextBoolean() ? starterDish1 : starterDish2,
+                r.nextBoolean() ? mainCourse1 : mainCourse2,
+                r.nextBoolean() ? desert1 : desert2
+        );
+
+        // combine dinner
+        starterDish1 = this.dayMeal.getDinner().getStarterDish();
+        starterDish2 = drone.dayMeal.getDinner().getStarterDish();
+
+        mainCourse1 = this.dayMeal.getDinner().getMainCourse();
+        mainCourse2 = drone.dayMeal.getDinner().getMainCourse();
+
+        desert1 = this.dayMeal.getDinner().getDesert();
+        desert2 = drone.dayMeal.getDinner().getDesert();
+
+        Dinner dinner = new Dinner(
+                r.nextBoolean() ? starterDish1 : starterDish2,
+                r.nextBoolean() ? mainCourse1 : mainCourse2,
+                r.nextBoolean() ? desert1 : desert2
+        );
+
+        // combine snack1
+        mainCourse1 = this.dayMeal.getSnack1().getMainCourse();
+        mainCourse2 = drone.dayMeal.getSnack1().getMainCourse();
+        Snack snack1 = new Snack(
+                r.nextBoolean() ? mainCourse1 : mainCourse2
+        );
+
+        // combine snack2
+        mainCourse1 = this.dayMeal.getSnack1().getMainCourse();
+        mainCourse2 = drone.dayMeal.getSnack1().getMainCourse();
+        Snack snack2 = new Snack(
+                r.nextBoolean() ? mainCourse1 : mainCourse2
+        );
+
+        DayMeal brood = new DayMeal(breakfast, lunch, dinner, snack1, snack2);
+
+
+/*
         brood.setBreakfast(r.nextBoolean() ? // if random is true
                 this.dayMeal.getBreakfast() : // take from this queen
                 drone.dayMeal.getBreakfast()); // otherwise, take from drone.
@@ -217,7 +270,7 @@ public class Solution implements Comparable<Solution> {
         brood.setSnack2(r.nextBoolean() ?
                 this.dayMeal.getSnack2() :
                 drone.dayMeal.getSnack2());
-
+*/
         return new Solution(brood);
     }
 
