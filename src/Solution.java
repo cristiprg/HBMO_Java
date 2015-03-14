@@ -20,7 +20,7 @@ public class Solution implements Comparable<Solution> {
     private int energy = 100;
     private double fitness = 0;
 
-    static double speedReductionFactor = 0.5;
+    static double speedReductionFactor = 0.9;
     static double energyReductionAmount = 5;
     static double probabilityToMateDroneThreshold = 0.05;
 
@@ -54,7 +54,7 @@ public class Solution implements Comparable<Solution> {
         double f1 = this.getFitness();
         double f2 = other.getFitness();
         // if this is > then other => fitness is better, thus return 1
-        if (f1 < f2)
+        if (f1 < f2 + 0.00001)
             return -1;
         else
             return 1;
@@ -62,6 +62,7 @@ public class Solution implements Comparable<Solution> {
 
     public double getFitness()
     {
+        //System.out.println("fitness = " + fitness);
         return fitness;
     }
 
@@ -87,6 +88,7 @@ public class Solution implements Comparable<Solution> {
             sum += err;
 
             //System.out.println(key + " " + " " + nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);
+            //System.out.println(nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);
 
         }
 
@@ -100,7 +102,13 @@ public class Solution implements Comparable<Solution> {
 
     private double errorMargin(Double x, Double ideal)
     {
+        final Double MAX = new Double(1);
+        x = x * MAX / ideal;
+        ideal = MAX;
+        //System.out.println("x = " + x + " ideal = " + ideal + "\n");
         return Math.exp(- (x - ideal) * (x - ideal));
+
+        //return Math.exp(- (x*x/(ideal*ideal)));
     }
 
     /**
@@ -146,6 +154,8 @@ public class Solution implements Comparable<Solution> {
     public void nextIteration() {
         speed *= speedReductionFactor;
         energy -= energyReductionAmount;
+
+        //System.out.println("Energy = " + energy + " Speed = " + speed);
     }
 
     /**
