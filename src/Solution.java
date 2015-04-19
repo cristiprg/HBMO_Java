@@ -103,6 +103,8 @@ public class Solution implements Comparable<Solution> {
     private double errorMargin(Double x, Double ideal)
     {
         final Double MAX = new Double(1);
+
+        ideal = (ideal != 0) ? ideal : 0.000001; // don't divide by 0
         x = x * MAX / ideal;
         ideal = MAX;
         //System.out.println("x = " + x + " ideal = " + ideal + "\n");
