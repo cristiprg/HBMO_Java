@@ -34,6 +34,7 @@ public class FoodProperties {
     // TODO: MAAARE TODO .... trebuie o idee a standardiza numele nutrientilor
     public void populateMap()
     {
+        /*
         nutrientsIdealValuesMap = new HashMap<String, Double>();
         nutrientsIdealValuesMap.put("energy_kcal", energyKcal);
         nutrientsIdealValuesMap.put("fatG", fatG);
@@ -47,6 +48,21 @@ public class FoodProperties {
         nutrientsIdealValuesMap.put("vitaminDUg", vitaminDUg);
         nutrientsIdealValuesMap.put("alcoholG", alcoholG);
         nutrientsIdealValuesMap.put("waterG", waterG);
+        */
+
+        nutrientsIdealValuesMap = new HashMap<String, Double>();
+        nutrientsIdealValuesMap.put("calories", energyKcal);
+        nutrientsIdealValuesMap.put("fats", fatG);
+        nutrientsIdealValuesMap.put("carbo", carbG);
+        //nutrientsIdealValuesMap.put("satFatAcidG", satFatAcidG);
+        //nutrientsIdealValuesMap.put("transFatAcidG", transFatAcidG);
+        nutrientsIdealValuesMap.put("proteins", proteinG);
+        //nutrientsIdealValuesMap.put("potassiumG", potassiumMg);
+        nutrientsIdealValuesMap.put("calcium", calciumMg);
+        nutrientsIdealValuesMap.put("sodium", sodiumMg);
+        nutrientsIdealValuesMap.put("vitaminD", vitaminDUg);
+        //nutrientsIdealValuesMap.put("alcoholG", alcoholG);
+        //nutrientsIdealValuesMap.put("waterG", waterG);
     }
 
     @Transient

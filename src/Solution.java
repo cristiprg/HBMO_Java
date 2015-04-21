@@ -8,11 +8,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The bee.
  */
 public class Solution implements Comparable<Solution> {
+    private static final Logger log = Logger.getLogger( Solution.class.getName() );
 
     private DayMeal dayMeal;
 
@@ -83,9 +86,16 @@ public class Solution implements Comparable<Solution> {
         Map<String, Double> nutrientsValueMap = dayMeal.getNutrientsValuesMap();
         Double sum = new Double(0);
         for (String key : nutrientsValueMap.keySet()) {
-            // TODO implement weigths
-            double err = errorMargin(nutrientsValueMap.get(key), NutrientsIdealValuesHelper.getIdealValueForNutrient(key));
-            sum += err;
+            try {
+                // TODO implement weigths
+                double err = errorMargin(nutrientsValueMap.get(key), NutrientsIdealValuesHelper.getIdealValueForNutrient(key));
+                sum += err;
+
+            }
+            catch (HbmoNutrientNotFoundException ex)
+            {
+                log.log(Level.SEVERE, ex.getMessage() + " Igoring ...");
+            }
 
             //System.out.println(key + " " + " " + nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);
             //System.out.println(nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);

@@ -9,6 +9,7 @@ import java.util.Map;
  */
 @Entity
 @Table(name = "nutrients_ideal_values", schema = "", catalog = "nutritioncareprocess")
+@Deprecated
 public class NutrientsIdealValues {
     private int id;
     private Double energyKcal;
