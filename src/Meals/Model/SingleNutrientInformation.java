@@ -57,6 +57,14 @@ public class SingleNutrientInformation {
         this.tolerableUpperIntakeLevel = tolerableUpperIntakeLevel;
     }
 
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
     /**
      * 
      */
@@ -66,4 +74,5 @@ public class SingleNutrientInformation {
     private Double upperLimit = null;
     private Double fixedValue = null;
     private Double tolerableUpperIntakeLevel = null;
+    private Integer weight = 1;
 }

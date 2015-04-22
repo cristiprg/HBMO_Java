@@ -83,14 +83,24 @@ public class Solution implements Comparable<Solution> {
     }
 
     private double getFitnessLevel1() {
-        Map<String, Double> nutrientsValueMap = dayMeal.getNutrientsValuesMap();
+        Map<String, Double> mealNutrientsValueMap = dayMeal.getNutrientsValuesMap();
         Double sum = new Double(0);
-        for (String key : nutrientsValueMap.keySet()) {
+        double err;
+        int weigth = 1, sum_weights = 0;
+        Double[] interval;
+        for (String key : mealNutrientsValueMap.keySet()) {
             try {
-                // TODO implement weigths
-                double err = errorMargin(nutrientsValueMap.get(key), NutrientsIdealValuesHelper.getIdealValueForNutrient(key));
-                sum += err;
+                weigth = NutrientsIdealValuesHelper.getWeightForNutrient(key);
+                if(NutrientsIdealValuesHelper.nutrientHasInterval(key)) {
+                    interval = NutrientsIdealValuesHelper.getIdealIntervalForNutrient(key);
+                    err = errorMarginInterval(mealNutrientsValueMap.get(key), interval[0], interval[1]);
+                }
+                else{
+                    err = errorMargin(mealNutrientsValueMap.get(key), NutrientsIdealValuesHelper.getIdealValueForNutrient(key));
+                }
 
+                sum += weigth * err;
+                sum_weights += weigth;
             }
             catch (HbmoNutrientNotFoundException ex)
             {
@@ -99,10 +109,9 @@ public class Solution implements Comparable<Solution> {
 
             //System.out.println(key + " " + " " + nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);
             //System.out.println(nutrientsValueMap.get(key) + " " + NutrientsIdealValuesHelper.getIdealValueForNutrient(key) + " " + err);
-
         }
 
-        return sum / nutrientsValueMap.size();
+        return sum / sum_weights;
     }
 
     private double getFitnessLevel2()
@@ -119,8 +128,17 @@ public class Solution implements Comparable<Solution> {
         ideal = MAX;
         //System.out.println("x = " + x + " ideal = " + ideal + "\n");
         return Math.exp(- (x - ideal) * (x - ideal));
+    }
 
-        //return Math.exp(- (x*x/(ideal*ideal)));
+    private double errorMarginInterval(Double x, Double lower_limit, Double upper_limit)
+    {
+        if (lower_limit <= x && x <= upper_limit)
+            return 1;
+        else if (x < lower_limit)
+            return errorMargin(x, lower_limit);
+        else
+            return errorMargin(x, upper_limit);
+
     }
 
     /**

@@ -17,22 +17,54 @@ public class NutrientsIdealValuesHelper {
                     getNutrientsIdealValuesById(1). // get new instance of NutrientsIdealValues - index 1 TODO: different ideals for different diets
                     getNutrientsIdealValuesMap(); // get the map only
                     */
-
+/*
     private static Map<String, Double> nutrientsIdealValuesMap =
             new NutritionalInformation(
                     NutritionalInformationSourceType.GeneralRecommendation,
                     new UserProfileStub())
                     .combineFinalDoctorPrescription(null)
                     .getFixedIdealNutrientsMap();
+*/
+    /**
+     * Cache a nutrient because there will be multiple calls for each nutrient.
+     */
+    private static SingleNutrientInformation cachedNutrient = null;
 
-    public static Double getIdealValueForNutrient(String nutrient) throws HbmoNutrientNotFoundException {
+    private static NutritionalInformation nutritionalInformation = new NutritionalInformation(
+            NutritionalInformationSourceType.GeneralRecommendation,
+            new UserProfileStub());
 
-        if( !nutrientsIdealValuesMap.containsKey(nutrient))
+    public static Double getIdealValueForNutrient(String nutrientName) throws HbmoNutrientNotFoundException {
+        SingleNutrientInformation nutrient = getSingleNutrientInformation(nutrientName);
+        return nutrient.getFixedValue();
+    }
+
+    public static Double[] getIdealIntervalForNutrient(String nutrientName) throws HbmoNutrientNotFoundException {
+        SingleNutrientInformation nutrient = getSingleNutrientInformation(nutrientName);
+        return new Double[] {nutrient.getLowerLimit(), nutrient.getUpperLimit()};
+    }
+
+    public static boolean nutrientHasInterval(String nutrientName) throws HbmoNutrientNotFoundException{
+        SingleNutrientInformation nutrient = getSingleNutrientInformation(nutrientName);
+        return nutrient.getLowerLimit() != null && nutrient.getUpperLimit() != null;
+    }
+
+    public static Integer getWeightForNutrient(String nutrientName)throws HbmoNutrientNotFoundException{
+        SingleNutrientInformation nutrient = nutritionalInformation.getNutrient(nutrientName);
+        return nutrient.getWeight();
+    }
+
+    private static SingleNutrientInformation getSingleNutrientInformation(String nutrientName) throws HbmoNutrientNotFoundException{
+        if(cachedNutrient != null && cachedNutrient.getName().equals(nutrientName))
+            return cachedNutrient;
+
+        SingleNutrientInformation nutrient = nutritionalInformation.getNutrient(nutrientName);
+        if(nutrient == null)
         {
-            HbmoNutrientNotFoundException exception = new HbmoNutrientNotFoundException(nutrient);
-            throw exception;
+            throw new HbmoNutrientNotFoundException(nutrientName);
         }
 
-        return nutrientsIdealValuesMap.get(nutrient);
+        cachedNutrient = nutrient;
+        return nutrient;
     }
 }
