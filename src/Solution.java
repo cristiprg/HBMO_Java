@@ -4,10 +4,7 @@ import com.sun.istack.internal.NotNull;
 import java.lang.Comparable;
 import java.lang.Math;
 import java.lang.Override;
-import java.util.Map;
-import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -79,7 +76,7 @@ public class Solution implements Comparable<Solution> {
     private void computeFitness() {
         //return (Math.exp(-x * x) + Math.exp(-y * y)) / 2.0;
         //return 0.5 * (getFitnessLevel1() + getFitnessLevel2());
-        fitness = getFitnessLevel1();
+        fitness = getFitnessLevel1() + getFitnessLevel2();
     }
 
     private double getFitnessLevel1() {
@@ -114,9 +111,49 @@ public class Solution implements Comparable<Solution> {
         return sum / sum_weights;
     }
 
-    private double getFitnessLevel2()
-    {
-        return 0;
+    private double getFitnessLevel2(){
+        Set<String> mealIngredientsSet = dayMeal.getNutrientsValuesMap().keySet();
+        Set<String> preferenceSet = UserProfileHelper.getPreferenceSet();
+        Set<String> allIngredientsSet = new TreeSet<String>(mealIngredientsSet);
+        allIngredientsSet.addAll(preferenceSet);
+
+        Set<String> likeSet = UserProfileHelper.getLikeList();
+        Set<String> disLikeSet = UserProfileHelper.getDisLikeList();
+
+        final int weight = 1;
+        int sum_weights = 0;
+        double sum = 0;
+        int ideal = 0;
+        int real = 0;
+
+        for(String ingredient : allIngredientsSet){
+            if(preferenceSet.contains(ingredient)){
+                ideal = likeSet.contains(ingredient) ? 1 : 0;
+                real = mealIngredientsSet.contains(ingredient) ? 1 : 0;
+
+                sum += weight * errorMarginIngredients(real, ideal);
+                sum_weights += weight;
+            }
+        }
+
+        return sum / sum_weights;
+    }
+
+    /**
+     * Computes the error margin for fitness level 2. It is based on the lookup table described in the documentation.
+     * @param real the
+     * @param ideal
+     * @return
+     */
+    private double errorMarginIngredients(int real, int ideal) {
+        // Look table
+        if(real == 1)
+            return ideal;
+
+        if(ideal == 0)
+            return 1;
+
+        return .7;
     }
 
     private double errorMargin(Double x, Double ideal)

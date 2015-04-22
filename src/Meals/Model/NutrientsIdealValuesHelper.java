@@ -3,11 +3,13 @@ package Meals.Model;
 import Meals.Model.Dao.NutrientsIdealValuesDAOImpl;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Created by cristiprg on 02.03.2015.
+ * Business logic for data related to the ideal nutritional values.
  */
 public class NutrientsIdealValuesHelper {
     private static final Logger log = Logger.getLogger( NutrientsIdealValuesHelper.class.getName() );
