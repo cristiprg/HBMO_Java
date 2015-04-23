@@ -112,9 +112,9 @@ public class Solution implements Comparable<Solution> {
     }
 
     private double getFitnessLevel2(){
-        Set<String> mealIngredientsSet = dayMeal.getNutrientsValuesMap().keySet();
+        Set<String> dayMealIngredientsSet = dayMeal.getNutrientsValuesMap().keySet();
         Set<String> preferenceSet = UserProfileHelper.getPreferenceSet();
-        Set<String> allIngredientsSet = new TreeSet<String>(mealIngredientsSet);
+        Set<String> allIngredientsSet = new TreeSet<String>(dayMealIngredientsSet);
         allIngredientsSet.addAll(preferenceSet);
 
         Set<String> likeSet = UserProfileHelper.getLikeList();
@@ -126,14 +126,14 @@ public class Solution implements Comparable<Solution> {
         int ideal = 0;
         int real = 0;
 
-        for(String ingredient : allIngredientsSet){
-            if(preferenceSet.contains(ingredient)){
-                ideal = likeSet.contains(ingredient) ? 1 : 0;
-                real = mealIngredientsSet.contains(ingredient) ? 1 : 0;
+        for(String ingredient : preferenceSet){
+
+                ideal = likeSet.contains(ingredient) ? 1 : 0; // 1 for likeSet, 0 for disLike
+                real = dayMealIngredientsSet.contains(ingredient) ? 1 : 0;
 
                 sum += weight * errorMarginIngredients(real, ideal);
                 sum_weights += weight;
-            }
+
         }
 
         return sum / sum_weights;
@@ -167,7 +167,7 @@ public class Solution implements Comparable<Solution> {
         return Math.exp(- (x - ideal) * (x - ideal));
     }
 
-    private double errorMarginInterval(Double x, Double lower_limit, Double upper_limit)
+    private double  errorMarginInterval(Double x, Double lower_limit, Double upper_limit)
     {
         if (lower_limit <= x && x <= upper_limit)
             return 1;
